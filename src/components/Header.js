@@ -18,11 +18,15 @@ import { useNavigate } from "react-router-dom";
 
 const pages = [
   {'name':'home','path':'/'},
+  {'name':'Blogs','path':'/blogs'},
+  {'name':'Contact','path':'/contact'},
   {'name':'Login','path':'/login'}
+
+
  ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Layouts() {
+function Header() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -62,7 +66,7 @@ function Layouts() {
               textDecoration: 'none',
             }}
           >
-            LOGO d
+            Cool
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -118,7 +122,7 @@ function Layouts() {
               textDecoration: 'none',
             }}
           >
-            LOGO e
+            Cool
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -166,4 +170,4 @@ function Layouts() {
     </AppBar>
   );
 }
-export default Layouts;
+export default Header;
