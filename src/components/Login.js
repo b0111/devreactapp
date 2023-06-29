@@ -44,7 +44,7 @@ async function loginUser(credentials) {
 
 const defaultTheme = createTheme();
 
-export const Login = () => {
+ function Login(){
 
 const [userEmail, setUserName] = useState();
 const [password, setPassword] = useState();
@@ -143,3 +143,5 @@ const handleSubmit = async e => {
   )
 }
 
+
+export  default Login;
