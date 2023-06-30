@@ -47,7 +47,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"  sx={{ bgcolor: "#454545" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -124,7 +124,7 @@ function Header() {
           >
             Cool
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center'} }}>
             {pages.map((page) => (
               <Button
                 key={page.name}

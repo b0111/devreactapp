@@ -9,6 +9,8 @@ import Login from './components/user/Login';
 import Profile from './components/user/Profile';
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 import Home from './pages/Home';
 import Contact from './pages/Contact';
@@ -29,11 +31,10 @@ import {Routes, Route, Navigate} from "react-router-dom";
         <Route path='/profile' element={<Profile/>} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/blogs' element={<Blogs/>} />
-
-
-        
       </Routes>
+      <Footer />
     </Box>
+    
   
   );
 }

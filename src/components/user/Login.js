@@ -66,7 +66,12 @@ const handleSubmit = async e => {
         window.location.href = "/profile";
       });
     } else {
-          swal("Failed", response.message, "error");
+    const err =  JSON.stringify(response.errors,false);
+      console.log(err[0]);
+          swal("Failed", 'test', "error", {
+        dangerMode: true,
+         buttons: true,
+        }  );
 
     }
   }
@@ -137,7 +142,8 @@ const handleSubmit = async e => {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      <br/><br/><br/>
+   
     </Container>
   </ThemeProvider>
   )
