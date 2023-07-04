@@ -15,38 +15,27 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
 
 
-
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
- function Profile()  {
-    
-  
+function Profile() {
 
+  const items = JSON.parse(localStorage.getItem('user'));
 
- const items = JSON.parse(localStorage.getItem('user'));
-  
- if(items){
-   var   userEmail = items.userEmail;
-
-   var  userNAme = items.userName;
- }
-       
-  console.log(items.userEmail);
-
+  if (items) {
+    var userEmail = items.userEmail;
+    var userNAme = items.userName;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
-    <Container component="main" maxWidth="xs">
-      {  userEmail  }  <br/> 
-      {userNAme}
- </Container>
-  </ThemeProvider>
+      <Container component="main" maxWidth="xs">
+        {userEmail}  <br />
+        {userNAme}
+      </Container>
+    </ThemeProvider>
   )
 }
 
-export default  Profile;
+export default Profile;
 

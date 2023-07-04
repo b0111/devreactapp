@@ -1,6 +1,4 @@
-
-
-
+import React, { useEffect, useState } from 'react';
 import ReactDOM from "react-dom/client";
 
 
@@ -16,26 +14,35 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Blogs from './pages/Blogs';
 
-import { Box } from "@mui/material";
+import { Box, radioClasses } from "@mui/material";
 import {Routes, Route, Navigate} from "react-router-dom";
 
+import Container from '@mui/material/Container';
+
+import { useRecoilValue } from 'recoil';
+import {checkLoginAtom} from './state/checkLogin'
+
+
  function App() {
- 
+  const auth= ( useRecoilValue(checkLoginAtom) == 'true')?  true : false ;
+  console.log(auth);
   return (
     <Box>
       <Header />
+   
+ 
+      <Box className='Container' sx={{ height: '450px' }}>
       <Routes>
         {/* <Route path='/' element={<Navigate to="/home" />} /> */}
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login/>} />
-        <Route path='/profile' element={<Profile/>} />
+        <Route path='/profile' element={auth ? <Profile/> : <Navigate to="/" />} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/blogs' element={<Blogs/>} />
       </Routes>
+      </Box>
       <Footer />
     </Box>
-    
-  
   );
 }
 
