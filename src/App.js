@@ -5,6 +5,10 @@ import ReactDOM from "react-dom/client";
 import { Link } from 'react-router-dom'
 import Login from './components/user/Login';
 import Profile from './components/user/Profile';
+import Logout from './components/user/Logout';
+
+
+
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -25,26 +29,29 @@ import {checkLoginAtom} from './state/checkLogin'
 
  function App() {
   const auth= ( useRecoilValue(checkLoginAtom) == 'true')?  true : false ;
-  console.log(auth);
+
   return (
     <Box>
       <Header />
-   
- 
       <Box className='Container' sx={{ height: '450px' }}>
       <Routes>
         {/* <Route path='/' element={<Navigate to="/home" />} /> */}
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login/>} />
+        <Route path='/login' element= {auth ? <Navigate to="/" />  : <Login/> }   />
         <Route path='/profile' element={auth ? <Profile/> : <Navigate to="/" />} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/blogs' element={<Blogs/>} />
+        <Route path='/logout' element={auth ? <Logout/> : <Navigate to="/" />}   />
       </Routes>
       </Box>
       <Footer />
     </Box>
   );
 }
+
+
+
+
 
 
 export default App;

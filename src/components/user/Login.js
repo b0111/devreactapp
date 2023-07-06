@@ -16,7 +16,7 @@ import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState} from 'recoil';
 
-import {checkLoginAtom, notificationAtom} from '../../state/checkLogin'
+import {checkLoginAtom} from '../../state/checkLogin'
 
 
 
