@@ -76,7 +76,8 @@ const handleSubmit = async e => {
       .then((value) => {
         localStorage.setItem('accessToken', response['accessToken']);
         localStorage.setItem('user', JSON.stringify(response['user']));
-        window.location.href = "/profile";
+       // window.location.href = "/profile";
+       navigate("/profile");
       });
     } else {
     const err =  JSON.stringify(response.errors,false);
@@ -90,7 +91,6 @@ const handleSubmit = async e => {
   }
 
   useEffect(() => {
-
     const loggedInUser = localStorage.getItem("authenticated");
     if (loggedInUser) {
       setauthenticated(loggedInUser);
@@ -156,7 +156,7 @@ const handleSubmit = async e => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="sing-up" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

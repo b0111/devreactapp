@@ -6,16 +6,15 @@
 
 
   function Logout () {
-    const [authenticated, setauthenticated] = useRecoilState(checkLoginAtom);
+      const [anchorElNav, setAnchorElNav] = React.useState("");
 
+    const [authenticated, setauthenticated] = useRecoilState(checkLoginAtom);
     var navigate = useNavigate();
     useEffect(() => {
       setauthenticated('false');
       localStorage.clear()
-      navigate('/');
+      navigate('/home');
     }, []);
-
-   
   }
   
 

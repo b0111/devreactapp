@@ -13,31 +13,22 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+import {useEffect} from  'react';
 import { useNavigate } from "react-router-dom";
-
-import { useRecoilValue } from 'recoil';
-
+import {useRecoilState, useRecoilValue } from 'recoil';
 import { checkLoginAtom  } from '../state/checkLogin';
 
 
 const pages = [
   {'name':'home','path':'/'},
   {'name':'Blogs','path':'/blogs'},
-  {'name':'Contact','path':'/contact'}
+  {'name':'Contact','path':'/contact'},
  ];
 
- const login = {'name':'Login','path':'/login'}
 
  const settings = [
-  {'name':'Profile','path':'/profile'},
-  // {'name':'Account','path':'/'},
-  // {'name':'Dashboard','path':'/dashboard'},
-  {'name':'Logout','path':'/logout'}
+  {'name':'Profile','path':'/profile'}
 ];
-
-
-
-
 
 
 
@@ -47,17 +38,22 @@ function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const authenticated = ( useRecoilValue(checkLoginAtom) == 'true')?  true : false; 
   const items = JSON.parse(localStorage.getItem('user'));
+  const [aauthenticated, setauthenticated] = useRecoilState(checkLoginAtom);
 
   if (items) {
-
     var imagePath =  "http://localhost:4001/uploads/"+items.profileImage;
-
   }
 
 
-  if(!authenticated){
-     pages.indexOf(login) === -1 ? pages.push(login) : console.log("This item already exists");
+  function Logout () {
+    handleCloseUserMenu()
+    setauthenticated('false')
+    localStorage.clear()
+    navigate('/home')
   }
+
+  
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -73,7 +69,10 @@ function Header() {
     setAnchorElUser(null);
   };
 
+
   return (
+
+
     <AppBar position="static"  sx={{ bgcolor: "#454545" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -130,6 +129,10 @@ function Header() {
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
+
+              {!authenticated? (<MenuItem key="login" onClick={() =>navigate("login")}>
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>) : ""}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -161,13 +164,15 @@ function Header() {
                 {page.name}
               </Button>
             ))}
+            {!authenticated? (<Button key="login" onClick={() =>navigate("login")}  sx={{ my: 2, color: 'white', display: 'block' }}>
+                 Login
+                </Button>) : ""}
           </Box>
           
-          {authenticated == true ? (<Box sx={{ flexGrow: 0 }}>
+          {authenticated? (<Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} on   sx={{ p: 0 }}>
-
-                <Avatar alt="Remy Sharp" src={imagePath} />
+                <Avatar alt="Remy Sharp" src={items ? imagePath : ''} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -191,6 +196,10 @@ function Header() {
                   <Typography   textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
+
+               {authenticated? (<MenuItem key="logout" onClick={() =>Logout()}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>) : ""}
             </Menu>
           </Box>) : ""}
           

@@ -25,7 +25,7 @@ import Container from '@mui/material/Container';
 
 import { useRecoilValue } from 'recoil';
 import {checkLoginAtom} from './state/checkLogin'
-
+import PageNotFound from './PageNotFound';
 
  function App() {
   const auth= ( useRecoilValue(checkLoginAtom) == 'true')?  true : false ;
@@ -35,8 +35,10 @@ import {checkLoginAtom} from './state/checkLogin'
       <Header />
       <Box className='Container' sx={{ height: '450px' }}>
       <Routes>
-        {/* <Route path='/' element={<Navigate to="/home" />} /> */}
-        <Route path='/' element={<Home />} />
+        
+        <Route path="*" element={<PageNotFound />} />
+        <Route path='/' element={<Navigate to="/home" />} /> 
+        <Route path='/home' element={<Home />} />
         <Route path='/login' element= {auth ? <Navigate to="/" />  : <Login/> }   />
         <Route path='/profile' element={auth ? <Profile/> : <Navigate to="/" />} />
         <Route path='/contact' element={<Contact/>} />
