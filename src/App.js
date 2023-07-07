@@ -5,9 +5,6 @@ import ReactDOM from "react-dom/client";
 import { Link } from 'react-router-dom'
 import Login from './components/user/Login';
 import Profile from './components/user/Profile';
-import Logout from './components/user/Logout';
-
-
 
 
 import Header from "./components/Header";
@@ -27,23 +24,25 @@ import { useRecoilValue } from 'recoil';
 import {checkLoginAtom} from './state/checkLogin'
 import PageNotFound from './PageNotFound';
 
+import SignUp from './components/user/Signup';
+
  function App() {
   const auth= ( useRecoilValue(checkLoginAtom) == 'true')?  true : false ;
 
   return (
     <Box>
       <Header />
-      <Box className='Container' sx={{ height: '450px' }}>
+      <Box className='Container' sx={{ minHeight: '450px' }}>
       <Routes>
-        
+       <Route path="/404" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path='/' element={<Navigate to="/home" />} /> 
-        <Route path='/home' element={<Home />} />
-        <Route path='/login' element= {auth ? <Navigate to="/" />  : <Login/> }   />
+        <Route path='/home' element={<Navigate to="/" />} /> 
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element= { <Login/> }  />
         <Route path='/profile' element={auth ? <Profile/> : <Navigate to="/" />} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/blogs' element={<Blogs/>} />
-        <Route path='/logout' element={auth ? <Logout/> : <Navigate to="/" />}   />
+        <Route  path='/join-now' element={<SignUp/>}                          />
       </Routes>
       </Box>
       <Footer />

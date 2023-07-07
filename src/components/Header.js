@@ -46,7 +46,7 @@ function Header() {
 
 
   function Logout () {
-    handleCloseUserMenu()
+    setAnchorElUser(null);
     setauthenticated('false')
     localStorage.clear()
     navigate('/home')
