@@ -13,21 +13,24 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import {useEffect} from  'react';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import {useRecoilState, useRecoilValue } from 'recoil';
-import { checkLoginAtom  } from '../state/checkLogin';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { checkLoginAtom } from '../state/checkLogin';
+import { height } from '@mui/system';
 
 
 const pages = [
-  {'name':'home','path':'/'},
-  {'name':'Blogs','path':'/blogs'},
-  {'name':'Contact','path':'/contact'},
- ];
+  { 'name': 'home', 'path': '/' },
+  { 'name': 'Blogs', 'path': '/blogs' },
+  { 'name': 'Contact', 'path': '/contact' },
+];
 
 
- const settings = [
-  {'name':'Profile','path':'/profile'}
+const settings = [
+  { 'name': 'Profile', 'path': '/profile' }
 ];
 
 
@@ -36,23 +39,25 @@ function Header() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const authenticated = ( useRecoilValue(checkLoginAtom) == 'true')?  true : false; 
+  const authenticated = (useRecoilValue(checkLoginAtom) == 'true') ? true : false;
   const items = JSON.parse(localStorage.getItem('user'));
   const [aauthenticated, setauthenticated] = useRecoilState(checkLoginAtom);
 
   if (items) {
-    var imagePath =  "http://localhost:4001/uploads/"+items.profileImage;
+    var imagePath = "http://localhost:4001/uploads/" + items.profileImage;
+    var userName = items.userName;
+
   }
 
 
-  function Logout () {
+  function Logout() {
     setAnchorElUser(null);
     setauthenticated('false')
     localStorage.clear()
     navigate('/home')
   }
 
-  
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -73,10 +78,9 @@ function Header() {
   return (
 
 
-    <AppBar position="static"  sx={{ bgcolor: "#454545" }}>
+    <AppBar position="static" sx={{ bgcolor: "#454545" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-         
           <Typography
             variant="h6"
             noWrap
@@ -125,14 +129,14 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={() =>navigate(page.path)}>
+                <MenuItem key={page.name} onClick={() => navigate(page.path)}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
 
-              {!authenticated? (<MenuItem key="login" onClick={() =>navigate("login")}>
-                  <Typography textAlign="center">Login</Typography>
-                </MenuItem>) : ""}
+              {!authenticated ? (<MenuItem key="login" onClick={() => navigate("login")}>
+                <Typography textAlign="center">Login</Typography>
+              </MenuItem>) : ""}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -154,25 +158,32 @@ function Header() {
           >
             Cool
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center'} }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center' } }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
-                onClick={() =>navigate(page.path)}
+                onClick={() => navigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.name}
               </Button>
             ))}
-            {!authenticated? (<Button key="login" onClick={() =>navigate("login")}  sx={{ my: 2, color: 'white', display: 'block' }}>
-                 Login
-                </Button>) : ""}
+            {!authenticated ? (<Button key="login" onClick={() => navigate("login")} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Login
+            </Button>) : ""}
           </Box>
-          
-          {authenticated? (<Box sx={{ flexGrow: 0 }}>
+
+          {authenticated ? (<Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} on   sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={items ? imagePath : ''} />
+              <IconButton onClick={handleOpenUserMenu} on sx={{ p: 0 }}>
+                <Grid spacing={1} >
+                  <Grid xs={12}>
+                    <Avatar   sx={{ width: 35, height: 35 }}  alt="Remy Sharp" src={items ? imagePath : ''} />
+                  </Grid>
+                  <Grid xs={12}>
+                    <Typography sx={{ color: '#fff' }} textAlign="center">{userName}</Typography>
+                  </Grid>
+                </Grid>
               </IconButton>
             </Tooltip>
             <Menu
@@ -192,17 +203,17 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.path} onClick={() =>navigate(setting.path)} >
-                  <Typography   textAlign="center">{setting.name}</Typography>
+                <MenuItem key={setting.path} onClick={() => navigate(setting.path)} >
+                  <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
 
-               {authenticated? (<MenuItem key="logout" onClick={() =>Logout()}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>) : ""}
+              {authenticated ? (<MenuItem key="logout" onClick={() => Logout()}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>) : ""}
             </Menu>
           </Box>) : ""}
-          
+
         </Toolbar>
       </Container>
     </AppBar>

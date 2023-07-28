@@ -24,10 +24,13 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      userEmail: data.get('email'),
       password: data.get('password'),
+      profileImage :  data.get('profileImage'),
     });
   };
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -49,6 +52,7 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+              <input type="hidden" name="profileImage" value="blank.png" />
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
